@@ -2,7 +2,7 @@
 defaults:
   - /trainer: default
   - /loader: default
-  - /dataset: qautoaudio
+  - /dataset: farts
   - /task: multiclass_classification
   - /optimizer: adamw
   - /scheduler: cosine_warmup
