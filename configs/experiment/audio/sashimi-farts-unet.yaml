@@ -2,7 +2,7 @@
 defaults:
   - /trainer: default
   - /loader: default
-  - /dataset: sc09
+  - /dataset: qautoaudio
   - /task: multiclass_classification
   - /optimizer: adamw
   - /scheduler: cosine_warmup
