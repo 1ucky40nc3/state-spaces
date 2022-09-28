@@ -37,7 +37,7 @@ def test_step(model):
 
     print(torch.norm(y-ys))
 
-    breakpoint()
+    #breakpoint()
 
 @torch.inference_mode()
 def generate(
@@ -78,7 +78,7 @@ def generate(
     for t in tqdm(range(T)):
 
         # Step through the model with the current sample
-        breakpoint()
+        #breakpoint()
         y_t = model.step(x_t)
 
         # Handle special loss functions such as ProjectedAdaptiveSoftmax
@@ -250,7 +250,7 @@ def main(config: OmegaConf):
         np.save(f'{save_dir}/unconditional_{config.dataset._name_}_{config.model._name_}_len_{config.l_sample/16000.:.2f}s_logprobs.npy', logprobs)
     elif config.decode == 'text':
         y = [model.dataset.vocab.get_symbols(_y) for _y in y]
-        breakpoint() # Inspect output manually for now
+        #breakpoint() # Inspect output manually for now
     else: pass
 
 
