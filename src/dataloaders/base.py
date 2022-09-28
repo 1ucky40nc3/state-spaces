@@ -21,7 +21,8 @@ def deprecated(cls_or_func):
     return _deprecated
 
 # Default data path is environment variable or hippo/data
-if (default_data_path := os.getenv("DATA_PATH")) is None:
+default_data_path = os.getenv("DATA_PATH")
+if default_data_path is None:
     default_data_path = Path(__file__).parent.parent.parent.absolute()
     default_data_path = default_data_path / "data"
 else:
@@ -51,7 +52,7 @@ class DefaultCollateMixin:
         """
         x, y, *z = return_value
         assert len(z) == len(cls._collate_arg_names), "Specify a name for each auxiliary data item returned by dataset"
-        return x, y, {k: v for k, v in zip(cls._collate_arg_names, z)}
+        return (x, y, {k: v for k, v in zip(cls._collate_arg_names, z)})
 
     @classmethod
     def _collate(cls, batch, *args, **kwargs):
@@ -138,7 +139,7 @@ class SequenceResolutionCollateMixin(DefaultCollateMixin):
 
     @classmethod
     def _return_callback(cls, return_value, resolution=None):
-        return *return_value, {"rate": resolution}
+        return (*return_value, {"rate": resolution})
 
 
     collate_args = ['resolution']
@@ -169,7 +170,7 @@ class ImageResolutionCollateMixin(SequenceResolutionCollateMixin):
 
     @classmethod
     def _return_callback(cls, return_value, resolution=None, img_size=None, channels_last=True):
-        return *return_value, {"rate": resolution}
+        return (*return_value, {"rate": resolution})
 
     collate_args = ['resolution', 'img_size', 'channels_last']
 
