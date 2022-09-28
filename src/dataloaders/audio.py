@@ -458,7 +458,7 @@ class SpeechCommands09(AbstractAudioDataset):
         x, y, *z = item
         if self.dequantize:
             x = self.dequantizer(x).unsqueeze(1)
-        return x, y, *z
+        return (x, y, *z)
 
 class SpeechCommands09Autoregressive(SequenceDataset):
     _name_ = 'sc09'
@@ -731,7 +731,7 @@ class LJSpeech(QuantizedAudioDataset):
         if self.use_text:
             file_name, _, _ = self.examples[index]
             tok_transcript = self.tok_transcripts[file_name.split('/')[-1].split('.')[0]]
-            return *item, tok_transcript
+            return (*item, tok_transcript)
         return item
 
 class LJSpeechAutoregressive(SequenceDataset):
@@ -1003,7 +1003,7 @@ class SpeechCommandsGeneration(SequenceDataset):
     @classmethod
     def _return_callback(cls, return_value, *args, **kwargs):
         x, y, *z = return_value
-        return x, y.long(), *z
+        return (x, y.long(), *z)
 
 @deprecated
 class Music(SequenceDataset):
@@ -1055,4 +1055,4 @@ class Music(SequenceDataset):
     @classmethod
     def _return_callback(cls, return_value, *args, **kwargs):
         x, y, *z = return_value
-        return x, y.long(), *z
+        return (x, y.long(), *z)
