@@ -167,7 +167,8 @@ class SequenceLightningModule(pl.LightningModule):
 
         # Instantiate model
         self.model = utils.instantiate(registry.model, self.hparams.model)
-        if (name := self.hparams.train.post_init_hook['_name_']) is not None:
+        name = self.hparams.train.post_init_hook['_name_']
+        if name is not None:
             kwargs = self.hparams.train.post_init_hook.copy()
             del kwargs['_name_']
             for module in self.modules():
@@ -216,13 +217,15 @@ class SequenceLightningModule(pl.LightningModule):
 
     def _check_config(self):
         assert self.hparams.train.state.mode in [None, "none", "null", "reset", "bptt", "tbptt"]
+        n = self.hparams.train.state.n_context
         assert (
-            (n := self.hparams.train.state.n_context) is None
+            n is None
             or isinstance(n, int)
             and n >= 0
         )
+        n = self.hparams.train.state.n_context_eval
         assert (
-            (n := self.hparams.train.state.n_context_eval) is None
+            n is None
             or isinstance(n, int)
             and n >= 0
         )
