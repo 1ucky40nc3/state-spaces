@@ -302,6 +302,7 @@ class QuantizedAutoregressiveAudio(SequenceDataset):
             'drop_last': False,
             'context_len': None,
             'pad_len': None,
+            "target_sr": None
         }
 
     def setup(self):
@@ -320,6 +321,7 @@ class QuantizedAutoregressiveAudio(SequenceDataset):
             drop_last=self.drop_last,
             context_len=self.context_len,
             pad_len=self.pad_len,
+            target_sr=self.target_sr
         )
 
         self.dataset_val = QuantizedAudioDataset(
@@ -332,6 +334,7 @@ class QuantizedAutoregressiveAudio(SequenceDataset):
             drop_last=self.drop_last,
             context_len=self.context_len,
             pad_len=self.pad_len,
+            target_sr=self.target_sr
         )
 
         self.dataset_test = QuantizedAudioDataset(
@@ -344,6 +347,7 @@ class QuantizedAutoregressiveAudio(SequenceDataset):
             drop_last=self.drop_last,
             context_len=self.context_len,
             pad_len=self.pad_len,
+            target_sr=self.target_sr
         )
 
         def collate_fn(batch):
