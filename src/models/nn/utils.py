@@ -76,7 +76,7 @@ def wrap_kwargs(f):
                 kwargs = {}
             y = f(**bound.arguments)
             if isinstance(y, tuple) and isinstance(y[-1], dict):
-                return *y[:-1], {**y[-1], **kwargs}
+                return (*y[:-1], {**y[-1], **kwargs})
             else:
                 return y, kwargs
     return f_kwargs
